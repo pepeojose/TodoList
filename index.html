@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <div class="main__container">
+        <nav class="nav">
+            <a href="/" class="nav__link">Todo List App</a>
+        </nav>
+        <div class="container">
+            <div id="app" class="app">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Añade una Tarea</h2>
+                    </div>
+                    <form id="task-form" class="card__body">
+                        <div class="form__group">
+                            <input type="text" class="form__input" id="task" placeholder="Tarea">
+                        </div>
+                        <div class="form__group">
+                            <input type="date" class="form__input" id="date" placeholder="Fecha límite">
+                        </div>
+                        <div class="form__group">
+                            <select name="urgency" id="urgency" class="form__input">
+                                <option value="importante">Importante</option>
+                                <option value="normal">Normal</option>
+                                <option value="prescindible">Prescindible</option>
+                            </select>
+                        </div>
+                        <input type="submit" id="btn-form" class="btn__form" value="Crear Tarea">
+                    </form>
+                </div>
+                <div class="mostrar">
+                    <div class="product__list" id="product-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
