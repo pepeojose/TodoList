@@ -8,7 +8,7 @@ class Tarea {
 
 const addTask = (work) => {
     const productList = document.getElementById('product-list')
-    const div = document.createElement('div')
+    const div = document.createElement('DIV')
     div.innerHTML = `
     <div class="tarea">
         <p>
@@ -30,18 +30,28 @@ document.getElementById('task-form').addEventListener('submit', function(e) {
     const task = document.getElementById('task').value
     const date = document.getElementById('date').value
     const urgency = document.getElementById('urgency').value
-        // const today = new Date()
-        // const day = `${today.getFullYear()} ${today.getMonth()+1} ${today.getDate()}`
-        // console.log(day)
-        // console.log(date)
 
+    // Comparar fecha
+
+    const today = new Date()
+    let day = today.getDate().toString()
+    if (day.length <= 1) day = `0 ${day}`
+
+    let month = (today.getMonth() + 1).toString()
+    console.log(month)
+    if (month.length <= 1) month = "0" + month
+
+    let year = today.getFullYear()
+
+    let currentDate = `${year}-${month}-${day}`
+    console.log(currentDate)
+    console.log(date)
 
     if (task === '' || date === '' || urgency === '') {
         alert('Vacio')
-            // } else if (date < day) {
-            //     console.log(day)
-            //     alert('Fecha no')
-            // } else {
+    } else if (date < currentDate) {
+        alert('Fecha no')
+    } else {
         const work = new Tarea(task, date, urgency)
         console.log(work)
         addTask(work)
