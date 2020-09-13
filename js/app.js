@@ -7,8 +7,8 @@ class Tarea {
 }
 
 const addTask = (work) => {
-    const productList = document.getElementById('product-list')
-    const div = document.createElement('DIV')
+    const productList = document.getElementById('task-list')
+    const div = document.createElement('div')
     div.innerHTML = `
     <div class="tarea">
         <p>
@@ -24,6 +24,23 @@ const addTask = (work) => {
 
 const resetForm = () => {
     document.getElementById('task-form').reset()
+}
+
+const showMessage = (message, cssClass) => {
+    let info = document.createElement('div')
+    info.className = `alert ${cssClass}`
+
+    info.innerHTML = `
+    <p>${message}</p>
+    `
+
+    const container = document.querySelector('.container')
+    const app = document.querySelector('#app')
+    container.insertBefore(info, app)
+    setTimeout(function() {
+        document.querySelector('.alert').remove()
+    }, 3000)
+
 }
 
 document.getElementById('task-form').addEventListener('submit', function(e) {
@@ -48,9 +65,12 @@ document.getElementById('task-form').addEventListener('submit', function(e) {
     console.log(date)
 
     if (task === '' || date === '' || urgency === '') {
-        alert('Vacio')
+        console.log('Vacio')
+        showMessage('Por favor rellena todos los campos', 'error')
     } else if (date < currentDate) {
-        alert('Fecha no')
+        showMessage('No puedes introducir una fecha pasada', 'error')
+        document.getElementById('date').focus()
+        console.log('Fecha no')
     } else {
         const work = new Tarea(task, date, urgency)
         console.log(work)
