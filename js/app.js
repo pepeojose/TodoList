@@ -60,10 +60,8 @@ const showMessage = (message, cssClass) => {
     info.innerHTML = `
     <p>${message}</p>
     `
-
-    const container = document.querySelector('.container')
-    const app = document.querySelector('#app')
-    container.prepend(info)
+    const nav = document.querySelector('.nav')
+    nav.append(info)
     setTimeout(function() {
         document.querySelector('.alert').remove()
     }, 3000)

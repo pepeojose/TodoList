@@ -13,6 +13,7 @@ a {
     height: 100px;
     border-bottom: 1px solid #ccc;
     padding-left: 2rem;
+    display: flex;
 }
 
 .nav__link {
@@ -116,9 +117,9 @@ a {
 }
 
 .alert {
-    width: 80%;
+    width: 70%;
     margin: 1rem auto;
-    padding: 1rem;
+    padding: 1.3rem;
     font-size: 1.2rem;
     border-radius: 10px;
 }
