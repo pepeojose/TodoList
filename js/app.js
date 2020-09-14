@@ -20,8 +20,7 @@ const addTask = (work) => {
         </div>
         <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}</p> 
         <p class="paragraph"> <span class="span"> Urgencia:</span> ${work.importancia.toUpperCase()}</p>
-        <button class="delete" name="delete">Borrar</button>
-        
+        <button class="delete" id="delete" name="delete">Borrar</button>
     </div>
     `
         // Color de las tareas
@@ -46,6 +45,12 @@ const addTask = (work) => {
 const resetForm = () => {
     document.getElementById('task-form').reset()
 }
+
+//Eliminar tarea
+document.getElementById('task-list').addEventListener('click', function(e) {
+    if (e.target.name === 'delete') e.target.parentElement.parentElement.remove()
+    showMessage('Tarea eliminada con exito', 'eliminado')
+})
 
 // Mensajes de informacion
 const showMessage = (message, cssClass) => {
