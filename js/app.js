@@ -6,26 +6,48 @@ class Tarea {
     }
 }
 
+// Añadir tarea a la lista
 const addTask = (work) => {
+    const urgency = document.getElementById('urgency').value
     const productList = document.getElementById('task-list')
     const div = document.createElement('div')
+    div.classList.add('tarea')
     div.innerHTML = `
-    <div class="tarea">
-        <p>
-            <span class="span">Tarea</span> ${work.tarea} 
-            <span class="span"> Fecha</span> ${work.fecha} 
-            <span class="span"> Urgencia</span> ${work.importancia}
-            <button class="delete" name="delete">Borrar</button>
-        </p>
+    <div class="tarea__paragraph">
+        <div>   
+            <p class="paragraph"> <input type="checkbox"></p>
+            <p class="paragraph"> <span class="span">Tarea:</span> ${work.tarea}</p> 
+        </div>
+        <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}</p> 
+        <p class="paragraph"> <span class="span"> Urgencia:</span> ${work.importancia.toUpperCase()}</p>
+        <button class="delete" name="delete">Borrar</button>
+        
     </div>
     `
+        // Color de las tareas
+    switch (urgency) {
+        case 'urgente':
+            div.style.backgroundColor = 'red'
+            break;
+        case 'normal':
+            div.style.backgroundColor = 'green'
+            break;
+        case 'tranqui':
+            div.style.backgroundColor = 'blue'
+            break;
+        default:
+            break;
+    }
     productList.appendChild(div)
+    showMessage('Tarea añadida con exito', 'ok')
 }
 
+// Resetear formulario
 const resetForm = () => {
     document.getElementById('task-form').reset()
 }
 
+// Mensajes de informacion
 const showMessage = (message, cssClass) => {
     let info = document.createElement('div')
     info.className = `alert ${cssClass}`
@@ -36,13 +58,14 @@ const showMessage = (message, cssClass) => {
 
     const container = document.querySelector('.container')
     const app = document.querySelector('#app')
-    container.insertBefore(info, app)
+    container.prepend(info)
     setTimeout(function() {
         document.querySelector('.alert').remove()
     }, 3000)
 
 }
 
+// Evento del formulario
 document.getElementById('task-form').addEventListener('submit', function(e) {
     const task = document.getElementById('task').value
     const date = document.getElementById('date').value

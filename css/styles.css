@@ -33,6 +33,7 @@ a {
 
 .card {
     width: 350px;
+    height: max-content;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-left: 2rem;
@@ -77,8 +78,24 @@ a {
     margin-bottom: 1rem;
     padding: 1rem;
     font-size: 1.2rem;
-    background-color: rgb(240, 186, 86);
     border-radius: 25px;
+    color: #fff;
+}
+
+.tarea__paragraph {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paragraph {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.paragraph__date {
+    margin-right: 20px;
+    margin-left: auto;
 }
 
 .span {
@@ -89,10 +106,11 @@ a {
 /* --------------Boton de Borrado-------------------- */
 
 .delete {
+    margin-right: 20px;
     padding: 1rem;
     border-radius: 25px;
     border: none;
-    background-color: #e4624c;
+    background-color: orange;
     color: #fff;
     cursor: pointer;
 }
