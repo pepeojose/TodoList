@@ -15,8 +15,8 @@ const addTask = (work) => {
     div.innerHTML = `
     <div class="tarea__paragraph">
         <div>   
-            <p class="paragraph"> <input type="checkbox"></p>
-            <p class="paragraph"> <span class="span">Tarea:</span> ${work.tarea}</p> 
+            <p class="paragraph"> <input type="checkbox" id ="check"></p>
+            <p class="paragraph paragraph__text"> <span class="span">Tarea:</span> ${work.tarea}</p> 
         </div>
         <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}</p> 
         <p class="paragraph"> <span class="span"> Urgencia:</span> ${work.importancia.toUpperCase()}</p>
@@ -46,10 +46,25 @@ const resetForm = () => {
     document.getElementById('task-form').reset()
 }
 
+//Tarea completada
+
+document.getElementById('task-list').addEventListener('click', function(e) {
+    if (e.target.id === 'check') {
+        const paragraphText = document.querySelector('.paragraph__text')
+        paragraphText.classList.toggle('finished')
+        if (paragraphText.classList.contains('finished')) {
+            showMessage('Tarea realizada con exito', 'ok')
+        } else showMessage('Tarea no realizada', 'error')
+    }
+})
+
+
 //Eliminar tarea
 document.getElementById('task-list').addEventListener('click', function(e) {
-    if (e.target.name === 'delete') e.target.parentElement.parentElement.remove()
-    showMessage('Tarea eliminada con exito', 'eliminado')
+    if (e.target.name === 'delete') {
+        e.target.parentElement.parentElement.remove()
+        showMessage('Tarea eliminada con exito', 'eliminado')
+    }
 })
 
 // Mensajes de informacion
@@ -87,8 +102,6 @@ document.getElementById('task-form').addEventListener('submit', function(e) {
     let year = today.getFullYear()
 
     let currentDate = `${year}-${month}-${day}`
-    console.log(currentDate)
-    console.log(date)
 
     if (task === '' || date === '' || urgency === '') {
         console.log('Vacio')

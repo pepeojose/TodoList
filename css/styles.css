@@ -104,6 +104,14 @@ a {
 }
 
 
+/*-------------------Tarea terminada-------------------*/
+
+.finished {
+    background-color: #000;
+    text-decoration: line-through;
+}
+
+
 /* --------------Boton de Borrado-------------------- */
 
 .delete {
