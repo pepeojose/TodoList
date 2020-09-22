@@ -41,6 +41,13 @@ const addTask = (work) => {
     showMessage('Tarea añadida con exito', 'ok')
 }
 
+//Almacenar tarea en Local Storage
+const store = (work) => {
+    if (typeof(Storage !== 'undefined')) {
+        localStorage.setItem(work.tarea, JSON.stringify(work))
+    }
+}
+
 // Resetear formulario
 const resetForm = () => {
     document.getElementById('task-form').reset()
@@ -50,7 +57,7 @@ const resetForm = () => {
 
 document.getElementById('task-list').addEventListener('click', function(e) {
     if (e.target.id === 'check') {
-        const paragraphText = document.querySelector('.paragraph__text')
+        const paragraphText = e.target.parentElement.parentElement.childNodes[3]
         paragraphText.classList.toggle('finished')
         if (paragraphText.classList.contains('finished')) {
             showMessage('Tarea realizada con exito', 'ok')
@@ -96,7 +103,6 @@ document.getElementById('task-form').addEventListener('submit', function(e) {
     if (day.length <= 1) day = `0 ${day}`
 
     let month = (today.getMonth() + 1).toString()
-    console.log(month)
     if (month.length <= 1) month = "0" + month
 
     let year = today.getFullYear()
@@ -104,16 +110,14 @@ document.getElementById('task-form').addEventListener('submit', function(e) {
     let currentDate = `${year}-${month}-${day}`
 
     if (task === '' || date === '' || urgency === '') {
-        console.log('Vacio')
         showMessage('Por favor rellena todos los campos', 'error')
     } else if (date < currentDate) {
         showMessage('No puedes introducir una fecha pasada', 'error')
         document.getElementById('date').focus()
-        console.log('Fecha no')
     } else {
         const work = new Tarea(task, date, urgency)
-        console.log(work)
         addTask(work)
+        store(work)
         resetForm()
     }
     e.preventDefault()
