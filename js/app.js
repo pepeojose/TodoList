@@ -16,7 +16,7 @@ const addTask = (work) => {
     <div class="tarea__paragraph">
         <div>   
             <p class="paragraph"> <input type="checkbox" id ="check"></p>
-            <p class="paragraph paragraph__text"> <span class="span">Tarea:</span> ${work.tarea}</p> 
+            <p class="paragraph paragraph__text"> <span class="span">Tarea:</span><span>${work.tarea}</span></p> 
         </div>
         <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}</p> 
         <p class="paragraph"> <span class="span"> Urgencia:</span> ${work.importancia.toUpperCase()}</p>
@@ -41,11 +41,16 @@ const addTask = (work) => {
     showMessage('Tarea añadida con exito', 'ok')
 }
 
-//Almacenar tarea en Local Storage
+//Almacenar tarea en LocalStorage
 const store = (work) => {
     if (typeof(Storage !== 'undefined')) {
         localStorage.setItem(work.tarea, JSON.stringify(work))
     }
+}
+
+//Eliminar del LocalStorage
+const removeStorage = (ele) => {
+    localStorage.removeItem(ele)
 }
 
 // Resetear formulario
@@ -69,8 +74,18 @@ document.getElementById('task-list').addEventListener('click', function(e) {
 //Eliminar tarea
 document.getElementById('task-list').addEventListener('click', function(e) {
     if (e.target.name === 'delete') {
-        e.target.parentElement.parentElement.remove()
+        taskToRemove = e.target.parentElement.parentElement
+        taskToRemove.remove()
         showMessage('Tarea eliminada con exito', 'eliminado')
+
+        //Localizar key del elemento a borrar en localStorage
+        const taskItems = Array.from(e.target.parentElement.children)
+        const taskItem = taskItems[0].lastElementChild.lastElementChild.textContent
+
+
+        if (taskItem.length >= 1) {
+            removeStorage(taskItem)
+        }
     }
 })
 
