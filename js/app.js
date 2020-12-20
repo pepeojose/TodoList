@@ -1,26 +1,30 @@
 class Tarea {
-    constructor(tarea, fecha, importancia) {
+    constructor(tarea, fecha, time, importancia) {
         this.tarea = tarea
         this.fecha = fecha
+        this.time = time
         this.importancia = importancia
     }
 }
 
 // Añadir tarea a la lista
-const addTask = (work) => {
+const addTask = (work, deadline) => {
     const urgency = document.getElementById('urgency').value
-    const productList = document.getElementById('task-list')
+    const taskList = document.getElementById('task-list')
     const div = document.createElement('div')
-    div.classList.add('tarea')
-    div.innerHTML = `
-    <div class="tarea__paragraph">
+    div.classList.add('task')
+    div.setAttribute('id', Date.now())
+    let paragraphId = Date.now() + 1
+    div.innerHTML = ` 
+    <div class="task__paragraph">
         <div>   
             <p class="paragraph"> <input type="checkbox" id ="check"></p>
-            <p class="paragraph paragraph__text"> <span class="span">Tarea:</span><span>${work.tarea}</span></p> 
+            <p class="paragraph paragraph__text"> <span class="span">Tarea: </span><span>${work.tarea}</span></p> 
         </div>
-        <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}</p> 
+        <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}<span class="span"> Hora: ${work.time}</span></p>
+        <p class="paragraph__date" id="${paragraphId}"></p>
         <p class="paragraph"> <span class="span"> Urgencia:</span> ${work.importancia.toUpperCase()}</p>
-        <button class="delete" id="delete" name="delete">Borrar</button>
+        <button class="delete" name="delete">Borrar</button>
     </div>
     `
         // Color de las tareas
@@ -37,8 +41,41 @@ const addTask = (work) => {
         default:
             break;
     }
-    productList.appendChild(div)
+    taskList.appendChild(div)
+    countdown(deadline, paragraphId, '¡Ya empezó!') //Llamada cuenta atras
     showMessage('Tarea añadida con exito', 'ok')
+}
+
+// Cuenta atras
+const getRemaininTime = deadline => {
+    let now = new Date(),
+        remainTime = (new Date(deadline) - now + 1000) / 1000,
+        remainSeconds = ('0' + Math.floor(remainTime % 60)).slice(-2),
+        remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
+        remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
+        remainDays = Math.floor(remainTime / (3600 * 24))
+    return {
+        remainTime,
+        remainSeconds,
+        remainMinutes,
+        remainHours,
+        remainDays
+    }
+}
+
+const countdown = (deadline, elem, finalMessage) => {
+    const el = document.getElementById(elem)
+
+    const timerUpdate = setInterval(() => {
+        let finalTime = getRemaininTime(deadline)
+        el.innerHTML = `<span class="span">Faltan: </span>${finalTime.remainDays}d:${finalTime.remainHours}h:${finalTime.remainMinutes}m:${finalTime.remainSeconds}s`
+
+        if (finalTime.remainTime <= 1) {
+            clearInterval(timerUpdate)
+            el.innerHTML = finalMessage
+        }
+
+    }, 1000)
 }
 
 //Almacenar tarea en LocalStorage
@@ -76,7 +113,7 @@ document.getElementById('task-list').addEventListener('click', function(e) {
     if (e.target.name === 'delete') {
         taskToRemove = e.target.parentElement.parentElement
         taskToRemove.remove()
-        showMessage('Tarea eliminada con exito', 'eliminado')
+        showMessage('Tarea eliminada con exito', 'removed')
 
         //Localizar key del elemento a borrar en localStorage
         const taskItems = Array.from(e.target.parentElement.children)
@@ -97,8 +134,8 @@ const showMessage = (message, cssClass) => {
     info.innerHTML = `
     <p>${message}</p>
     `
-    const nav = document.querySelector('.nav')
-    nav.append(info)
+    const header = document.getElementById('header')
+    header.append(info)
     setTimeout(function() {
         document.querySelector('.alert').remove()
     }, 3000)
@@ -109,6 +146,7 @@ const showMessage = (message, cssClass) => {
 document.getElementById('task-form').addEventListener('submit', function(e) {
     const task = document.getElementById('task').value
     const date = document.getElementById('date').value
+    const time = document.getElementById('time').value
     const urgency = document.getElementById('urgency').value
 
     // Comparar fecha
@@ -122,16 +160,21 @@ document.getElementById('task-form').addEventListener('submit', function(e) {
 
     let year = today.getFullYear()
 
-    let currentDate = `${year}-${month}-${day}`
+    let hours = today.getHours()
+    let minutes = today.getMinutes()
+    let seconds = today.getSeconds()
 
-    if (task === '' || date === '' || urgency === '') {
+    let currentDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+
+    if (task === '' || date === '' || time === '' || urgency === '') {
         showMessage('Por favor rellena todos los campos', 'error')
     } else if (date < currentDate) {
         showMessage('No puedes introducir una fecha pasada', 'error')
         document.getElementById('date').focus()
     } else {
-        const work = new Tarea(task, date, urgency)
-        addTask(work)
+        const deadline = date + ' ' + time
+        const work = new Tarea(task, date, time, urgency)
+        addTask(work, deadline)
         store(work)
         resetForm()
     }

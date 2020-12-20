@@ -10,9 +10,9 @@
 
 <body>
     <div class="main__container">
-        <nav class="nav">
-            <a href="/" class="nav__link">Todo List App</a>
-        </nav>
+        <header class="header" id="header">
+            <h1 class="title">Todo<span class="title-span">List App</span></h1>
+        </header>
         <div class="container">
             <div id="app" class="app">
                 <div class="card">
@@ -27,6 +27,10 @@
                             <input type="date" class="form__input" id="date" placeholder="Fecha límite">
                         </div>
                         <div class="form__group">
+                            <input type="time" class="form__input" id="time" placeholder="Hora límite">
+                        </div>
+                        <div class="form__group">
+                            <label for="urgency" class="label">Urgencia de la Tarea:</label>
                             <select name="urgency" id="urgency" class="form__input">
                                 <option value="urgente">Urgente</option>
                                 <option value="normal">Normal</option>
@@ -36,7 +40,7 @@
                         <input type="submit" id="btn-form" class="btn__form" value="Crear Tarea">
                     </form>
                 </div>
-                <div class="mostrar">
+                <div class="show-task">
                     <div class="task__list" id="task-list"></div>
                 </div>
             </div>
