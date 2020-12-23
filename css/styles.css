@@ -99,9 +99,16 @@
     margin-right: 20px;
 }
 
+.paragraph__text {
+    margin-top: 0;
+}
+
+.container__date {
+    display: flex;
+}
+
 .paragraph__date {
     margin-right: 20px;
-    margin-left: auto;
 }
 
 .span {
@@ -160,9 +167,45 @@
 
 /* -------------------Responsive------------------- */
 
-@media screen and (max-width: 416px) {
+@media screen and (max-width: 801px) {
+    .container__date {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .alert {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .header {
+        display: flex;
+        flex-direction: column;
+    }
     .card {
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
+    }
+    .task__paragraph {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .paragraph__date {
+        margin-left: 0;
+    }
+    .delete {
+        margin: 0 auto;
+    }
+    .alert {
+        position: absolute;
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 361px) {
+    .card {
+        width: 100%;
+    }
+    .alert {
+        padding-left: 0.5rem;
     }
 }

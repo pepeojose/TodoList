@@ -21,7 +21,10 @@ const addTask = (work, deadline) => {
             <p class="paragraph"> <input type="checkbox" id ="check"></p>
             <p class="paragraph paragraph__text"> <span class="span">Tarea: </span><span>${work.tarea}</span></p> 
         </div>
-        <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}<span class="span"> Hora: ${work.time}</span></p>
+        <div class="container__date">
+            <p class="paragraph__date"> <span class="span"> Fecha:</span> ${work.fecha}</p>
+            <p class="paragraph__date"><span class="span"> Hora: ${work.time}</span></p>
+        </div>
         <p class="paragraph__date" id="${paragraphId}"></p>
         <p class="paragraph"> <span class="span"> Urgencia:</span> ${work.importancia.toUpperCase()}</p>
         <button class="delete" name="delete">Borrar</button>
