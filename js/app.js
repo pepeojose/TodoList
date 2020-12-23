@@ -42,7 +42,7 @@ const addTask = (work, deadline) => {
             break;
     }
     taskList.appendChild(div)
-    countdown(deadline, paragraphId, '¡Ya empezó!') //Llamada cuenta atras
+    countdown(deadline, paragraphId, '¡Tienes que hacerlo Ya!') //Llamada cuenta atras
     showMessage('Tarea añadida con exito', 'ok')
 }
 
@@ -89,6 +89,19 @@ const store = (work) => {
 const removeStorage = (ele) => {
     localStorage.removeItem(ele)
 }
+
+// Pinter elementos del LocalStorage
+
+window.addEventListener('load', () => {
+    const arrayStorage = Object.values(localStorage)
+    arrayStorage.forEach(task => {
+        const { tarea, fecha, time, importancia } = JSON.parse(task)
+        const work = new Tarea(tarea, fecha, time, importancia)
+        const deadline = fecha + ' ' + time
+
+        addTask(work, deadline)
+    })
+})
 
 // Resetear formulario
 const resetForm = () => {
