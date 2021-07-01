@@ -11,7 +11,7 @@
 <body>
     <div class="main__container">
         <header class="header" id="header">
-            <h1 class="title">Todo<span class="title-span">List App</span></h1>
+            <h1 class="main-title">Todo<span class="main-title__span">List App</span></h1>
         </header>
         <div class="container">
             <div id="app" class="app">
@@ -20,24 +20,24 @@
                         <h2 class="card__title">Añade una Tarea</h2>
                     </div>
                     <form id="task-form" class="card__body">
-                        <div class="form__group">
-                            <input type="text" class="form__input" id="task" placeholder="Tarea">
+                        <div>
+                            <input type="text" class="card__input" id="task" placeholder="Tarea">
                         </div>
-                        <div class="form__group">
-                            <input type="date" class="form__input" id="date" placeholder="Fecha límite">
+                        <div>
+                            <input type="date" class="card__input" id="date" placeholder="Fecha límite">
                         </div>
-                        <div class="form__group">
-                            <input type="time" class="form__input" id="time" placeholder="Hora límite">
+                        <div>
+                            <input type="time" class="card__input" id="time" placeholder="Hora límite">
                         </div>
-                        <div class="form__group">
-                            <label for="urgency" class="label">Urgencia de la Tarea:</label>
-                            <select name="urgency" id="urgency" class="form__input">
+                        <div>
+                            <label for="urgency" class="card__label">Urgencia de la Tarea:</label>
+                            <select name="urgency" id="urgency" class="card__input">
                                 <option value="urgente">Urgente</option>
                                 <option value="normal">Normal</option>
                                 <option value="tranqui">Tranqui</option>
                             </select>
                         </div>
-                        <input type="submit" id="btn-form" class="btn__form" value="Crear Tarea">
+                        <input type="submit" id="btn-form" class="card__btn" value="Crear Tarea">
                     </form>
                 </div>
                 <div class="show-task">
